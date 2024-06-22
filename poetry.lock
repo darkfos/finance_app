@@ -500,6 +500,26 @@ python-versions = ">=3.8"
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pymongo"
+version = "4.7.3"
+description = "Python driver for MongoDB <http://www.mongodb.org>"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+dnspython = ">=1.16.0,<3.0.0"
+
+[package.extras]
+aws = ["pymongo-auth-aws (>=1.1.0,<2.0.0)"]
+encryption = ["pymongo-auth-aws (>=1.1.0,<2.0.0)", "pymongocrypt (>=1.6.0,<2.0.0)", "certifi"]
+gssapi = ["pykerberos", "winkerberos (>=0.5.0)"]
+ocsp = ["pyopenssl (>=17.2.0)", "requests (<3.0.0)", "cryptography (>=2.5)", "service-identity (>=18.1.0)", "certifi"]
+snappy = ["python-snappy"]
+test = ["pytest (>=7)"]
+zstd = ["zstandard"]
+
+[[package]]
 name = "pypng"
 version = "0.20220715.0"
 description = "Pure Python library for saving and loading PNG images"
@@ -804,7 +824,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "b7e585ef37ed3eb48f86c44ef7195ab7dc9d58cd46215db3f4e97659ab249473"
+content-hash = "47adaf435e0818490a53cb363153dc99726bf321b98049a8518d9ed430f56ae4"
 
 [metadata.files]
 aiohttp = []
@@ -847,6 +867,7 @@ packaging = []
 pydantic = []
 pydantic-core = []
 pygments = []
+pymongo = []
 pypng = []
 python-dateutil = []
 python-dotenv = []

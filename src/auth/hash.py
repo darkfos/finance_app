@@ -1,5 +1,5 @@
 import hashlib
-from src.settings.auth_setting import AuthSettings
+from src.settings.auth_settings import AuthSettings
 
 
 class HashService:
