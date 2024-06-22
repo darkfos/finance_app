@@ -132,7 +132,7 @@ python-versions = ">=3.7.0"
 
 [[package]]
 name = "click"
-version = "8.1.7"
+version = "8.1.3"
 description = "Composable command line interface toolkit"
 category = "main"
 optional = false
@@ -272,6 +272,19 @@ python-versions = "<4.0,>=3.8"
 
 [package.dependencies]
 repath = ">=0.9.0,<0.10.0"
+
+[[package]]
+name = "flet-route"
+version = "0.3.3"
+description = "This makes it easy to manage multiple views with dynamic routing."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+click = "8.1.3"
+flet = "*"
+repath = "*"
 
 [[package]]
 name = "flet-runtime"
@@ -791,7 +804,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "aee2e4d2792e8231d1165bdae05c8b36b7425f15ae9ca157eb622b6cd7861265"
+content-hash = "b7e585ef37ed3eb48f86c44ef7195ab7dc9d58cd46215db3f4e97659ab249473"
 
 [metadata.files]
 aiohttp = []
@@ -815,6 +828,7 @@ fastapi = []
 fastapi-cli = []
 flet = []
 flet-core = []
+flet-route = []
 flet-runtime = []
 frozenlist = []
 h11 = []

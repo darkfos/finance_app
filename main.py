@@ -1,6 +1,6 @@
-from src.app.pages.auth.application_auth import AuthenticationPage
-from flet import app
+from src.app.router import Router
+import flet
 
 
 if __name__ == "__main__":
-    app(target=AuthenticationPage)
+    flet.app(target=Router)
