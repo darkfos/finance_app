@@ -1,16 +1,10 @@
 from flet import TextField
 
 
-def registration_field(text: str, width: int) -> TextField:
-    """
-    Создание текстового поля
-    :param text:
-    :return:
-    """
+class RegistrationField:
 
-    text_field: TextField = TextField(
-        label=text,
-        width=width
-    )
+    def __init__(self, text: str, width: int):
+        self.field = TextField(label=text, width=width)
 
-    return text_field
+    def get_field(self) -> TextField:
+        return self.field

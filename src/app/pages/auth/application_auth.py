@@ -1,10 +1,8 @@
 import flet as flet_app
 from src.settings.application_settings import ApplicationSettings
 from src.settings.registration_page_settings import RegistrationComponentsSettings
-from src.app.components.field.registration_field import registration_field
-#from src.app.components.button.reg_button import reg_outline_button
+from src.app.components.field.registration_field import RegistrationField
 from src.app.components.button.reg_button import OutlineButton
-from src.app.pages.auth.applicatin_registration import RegistrationPage
 from flet import MainAxisAlignment
 from flet_route import Params, Basket
 
@@ -17,6 +15,9 @@ class AuthenticationPage:
         page.window_resizable = ApplicationSettings.resizable_window
         page.title = ApplicationSettings.title_application
 
+        email_field = RegistrationField(text="Почта", width=RegistrationComponentsSettings.field_width).get_field()
+        password_field = RegistrationField(text="Пароль", width=RegistrationComponentsSettings.field_width).get_field()
+
         return flet_app.View(
             "/",
             controls=[
@@ -28,8 +29,8 @@ class AuthenticationPage:
                                 width=ApplicationSettings.weight_application,
                                 height=100,
                             ),
-                            registration_field(text="Почта", width=RegistrationComponentsSettings.field_width),
-                            registration_field(text="Пароль", width=RegistrationComponentsSettings.field_width),
+                            email_field,
+                            password_field,
                             flet_app.Row(
                                 controls=[
                                     OutlineButton(
@@ -37,14 +38,18 @@ class AuthenticationPage:
                                         width=150,
                                         color="blue",
                                         to_page="Вход",
-                                        page_now=page
+                                        page_now=page,
+                                        field_email=email_field,
+                                        field_password=password_field
                                     ).get_btn(),
                                     OutlineButton(
                                         text="Регистрация",
                                         width=150,
                                         color="blue",
                                         to_page="Регистрация",
-                                        page_now=page
+                                        page_now=page,
+                                        field_email=email_field,
+                                        field_password=password_field
                                     ).get_btn()
                                 ],
                                 alignment=MainAxisAlignment.CENTER

@@ -3,6 +3,7 @@ from src.db.abs_mongo import MongoABC
 from src.db.engine import MongoEngine
 from src.db.dto.user_dto import AddNewUser, UpdateUserInformation
 from bson.objectid import ObjectId
+from pydantic import EmailStr
 
 
 class UserService(MongoEngine, MongoABC):
@@ -56,3 +57,19 @@ class UserService(MongoEngine, MongoABC):
         is_updated = self.user_collection.update_one(data_update.model_dump())
         if is_updated: return True
         return False
+
+    def find_user_by_email(self, email: EmailStr, password: str) -> bool:
+        """
+        Поиск пользователей по email
+        :param email:
+        :return:
+        """
+
+        user: dict = self.user_collection.find_one({"email": email})
+        if user:
+            if user.get("password") == password:
+                return True
+            else:
+                return False
+        else:
+            return False
