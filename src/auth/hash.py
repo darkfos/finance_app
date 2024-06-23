@@ -4,7 +4,7 @@ from src.settings.auth_settings import AuthSettings
 
 class HashService:
 
-    def __init__(self, salt: str):
+    def __init__(self):
         self.__salt: str = AuthSettings.salt
 
     def hash_password(self, password: str) -> str:
@@ -19,7 +19,7 @@ class HashService:
         p - коэффицент распараллеливания
         """
 
-        hash_password = hashlib.scrypt(password=password.encode(), salt=self.__salt, n=8, r=512, p=4, dklen=32)
+        hash_password = hashlib.scrypt(password=password.encode(), salt=self.__salt.encode(), n=8, r=512, p=4, dklen=32)
 
         return hash_password.hex()
 

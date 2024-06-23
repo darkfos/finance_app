@@ -12,8 +12,13 @@ class Authentication:
         :return:
         """
 
-        find_user: bool = UserService().find_user_by_email(email=user_data.email, password=user_data.password)
+        find_user: bool = UserService().find_user_by_email(
+            email=user_data.email,
+            password=HashService().hash_password(password=user_data.password)
+        )
         if find_user is False:
+            hash_password = HashService().hash_password(password=user_data.password)
+            user_data.password = hash_password
             is_created: bool = UserService().add_new(new_user=user_data)
             if is_created:
                 return True
