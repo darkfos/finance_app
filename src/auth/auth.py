@@ -24,3 +24,25 @@ class Authentication:
                 return True
             return False
         return False
+
+    def auth_user(self, user_data: AddNewUser) -> bool:
+        """
+        Проверка данных пользователя
+        :param user_data:
+        :return:
+        """
+
+        #User data
+        user_data_from_email: dict = UserService().find_user_auth(email=user_data.email)
+
+        if user_data_from_email:
+            is_user_password = HashService().verify(
+                password_found=user_data_from_email.get("password"),
+                user_password=user_data.password
+            )
+
+            if is_user_password:
+                return True
+            return False
+
+        return False

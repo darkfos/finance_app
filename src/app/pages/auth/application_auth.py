@@ -3,6 +3,7 @@ from src.settings.application_settings import ApplicationSettings
 from src.settings.registration_page_settings import RegistrationComponentsSettings
 from src.app.components.field.registration_field import RegistrationField
 from src.app.components.button.reg_button import OutlineButton
+from src.app.components.text.text_error import TextError
 from flet import MainAxisAlignment
 from flet_route import Params, Basket
 
@@ -17,6 +18,7 @@ class AuthenticationPage:
 
         email_field = RegistrationField(text="Почта", width=RegistrationComponentsSettings.field_width).get_field()
         password_field = RegistrationField(text="Пароль", width=RegistrationComponentsSettings.field_width).get_field()
+        text_error = TextError(txt="").get_text_error()
 
         return flet_app.View(
             "/",
@@ -40,7 +42,8 @@ class AuthenticationPage:
                                         to_page="Вход",
                                         page_now=page,
                                         field_email=email_field,
-                                        field_password=password_field
+                                        field_password=password_field,
+                                        error=text_error
                                     ).get_btn(),
                                     OutlineButton(
                                         text="Регистрация",
@@ -49,11 +52,18 @@ class AuthenticationPage:
                                         to_page="Регистрация",
                                         page_now=page,
                                         field_email=email_field,
-                                        field_password=password_field
+                                        field_password=password_field,
+                                        error=text_error
                                     ).get_btn()
                                 ],
                                 alignment=MainAxisAlignment.CENTER
                             ),
+                            flet_app.Row(
+                                controls=[
+                                    text_error
+                                ],
+                                alignment=MainAxisAlignment.CENTER
+                            )
                         ],
                         alignment=MainAxisAlignment.CENTER,
                         spacing=15

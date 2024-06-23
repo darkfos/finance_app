@@ -37,7 +37,15 @@ class OutlineButton:
 
     def continue_to_page(self, e):
         if self.to_page == "Вход":
-            self.page.go("/")
+            is_user: bool = Authentication().auth_user(user_data=AddNewUser(
+                email=self.field_email.value,
+                password=self.field_password.value
+            ))
+            if is_user:
+                self.page.go("/")
+            else:
+                self.error.value = "Неверные данные!"
+                self.page.update()
         else:
             if self.to_page == "Процесс регистрации":
                 create_user: bool = Authentication().user_is_created(user_data=AddNewUser(

@@ -60,7 +60,7 @@ class UserService(MongoEngine, MongoABC):
 
     def find_user_by_email(self, email: EmailStr, password: str) -> bool:
         """
-        Поиск пользователей по email
+        Поиск пользователей по email и password
         :param email:
         :return:
         """
@@ -73,3 +73,14 @@ class UserService(MongoEngine, MongoABC):
                 return False
         else:
             return False
+
+    def find_user_auth(self, email: str) -> Union[Dict, bool]:
+        """
+        Поиск пользователя по email
+        :param email:
+        :return:
+        """
+
+        user: dict = self.user_collection.find_one({"email": email})
+        if user: return user
+        return False
