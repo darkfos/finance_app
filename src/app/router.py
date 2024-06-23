@@ -5,6 +5,7 @@ from flet_route import Routing, path
 #Pages
 from src.app.pages.auth.application_auth import AuthenticationPage
 from src.app.pages.auth.applicatin_registration import RegistrationPage
+from src.app.pages.main.general_page import GenerapPage
 
 
 class Router:
@@ -27,6 +28,11 @@ class Router:
                 url="/registration",
                 clear=True,
                 view=RegistrationPage().view
+            ),
+            path(
+                url="/general",
+                clear=True,
+                view=GenerapPage().view
             )
         ]
 

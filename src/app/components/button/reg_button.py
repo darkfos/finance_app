@@ -48,7 +48,7 @@ class OutlineButton:
                 self.page.update()
             else:
                 if is_user:
-                    self.page.go("/")
+                    self.page.go("/general")
                 else:
                     self.error.value = "Неверные данные!"
                     self.page.update()
