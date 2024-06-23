@@ -1,5 +1,6 @@
 from typing import Union
 import flet
+import pydantic
 from flet import OutlinedButton, ButtonStyle, app, TextField, Text, Row, MainAxisAlignment
 from src.auth.auth import Authentication
 from src.db.dto.user_dto import AddNewUser
@@ -37,26 +38,36 @@ class OutlineButton:
 
     def continue_to_page(self, e):
         if self.to_page == "Вход":
-            is_user: bool = Authentication().auth_user(user_data=AddNewUser(
-                email=self.field_email.value,
-                password=self.field_password.value
-            ))
-            if is_user:
-                self.page.go("/")
-            else:
-                self.error.value = "Неверные данные!"
-                self.page.update()
-        else:
-            if self.to_page == "Процесс регистрации":
-                create_user: bool = Authentication().user_is_created(user_data=AddNewUser(
+            try:
+                is_user: bool = Authentication().auth_user(user_data=AddNewUser(
                     email=self.field_email.value,
                     password=self.field_password.value
                 ))
-                if create_user is True:
+            except pydantic.ValidationError:
+                self.error.value = "Неверное введённые данные!"
+                self.page.update()
+            else:
+                if is_user:
                     self.page.go("/")
                 else:
-                    self.error.value = "Данный пользователь уже зарегистрирован!"
+                    self.error.value = "Неверные данные!"
                     self.page.update()
+        else:
+            if self.to_page == "Процесс регистрации":
+                try:
+                    create_user: bool = Authentication().user_is_created(user_data=AddNewUser(
+                        email=self.field_email.value,
+                        password=self.field_password.value
+                    ))
+                except pydantic.ValidationError:
+                    self.error.value = "Неверное введённые данные!"
+                    self.page.update()
+                else:
+                    if create_user is True:
+                        self.page.go("/")
+                    else:
+                        self.error.value = "Данный пользователь уже зарегистрирован!"
+                        self.page.update()
             else:
                 self.page.go("/registration")
 

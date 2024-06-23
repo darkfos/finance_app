@@ -4,6 +4,8 @@ from src.settings.registration_page_settings import RegistrationComponentsSettin
 from src.app.components.field.registration_field import RegistrationField
 from src.app.components.text.text_error import TextError
 from src.app.components.button.reg_button import OutlineButton
+from src.app.components.chech_box.checkbox_reg import CheckBoxReg, Checkbox
+from src.app.components.button.filled_tonal_button_reg import FilledTonalButtonReg, FilledTonalButton
 from flet import MainAxisAlignment
 from flet_route import Basket, Params
 
@@ -16,13 +18,29 @@ class RegistrationPage:
         page.window_resizable = ApplicationSettings.resizable_window
         page.title = ApplicationSettings.title_application
 
+        btn_gnr: FilledTonalButton = FilledTonalButtonReg(
+            text="Обратно",
+            page=page,
+            bg="blue",
+            color="black"
+        ).get_filled_tonal_btn()
         email_field = RegistrationField(text="Почта", width=RegistrationComponentsSettings.field_width).get_field()
-        password_field = RegistrationField(text="Пароль", width=RegistrationComponentsSettings.field_width).get_field()
+        password_field = RegistrationField(
+            text="Пароль",
+            width=RegistrationComponentsSettings.field_width,
+            password=True
+        ).get_field()
+        check_box_for_password_field: Checkbox = CheckBoxReg(
+            text="Показать пароль",
+            page=page,
+            field=password_field
+        ).get_check_box()
         text_error = TextError(txt="").get_text_error()
 
         return flet_app.View(
             "/registration",
             controls=[
+                btn_gnr,
                 flet_app.Container(
                     flet_app.Column(
                         controls=[
@@ -33,6 +51,7 @@ class RegistrationPage:
                             ),
                             email_field,
                             password_field,
+                            check_box_for_password_field,
                             flet_app.Row(
                                 controls=[
                                     OutlineButton(
@@ -61,7 +80,7 @@ class RegistrationPage:
                     margin=flet_app.margin.only(
                         left=ApplicationSettings.weight_application // 4,
                         right=ApplicationSettings.weight_application // 4,
-                        top=150
+                        top=125
                     )
                 )
             ]

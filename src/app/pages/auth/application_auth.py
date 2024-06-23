@@ -4,6 +4,7 @@ from src.settings.registration_page_settings import RegistrationComponentsSettin
 from src.app.components.field.registration_field import RegistrationField
 from src.app.components.button.reg_button import OutlineButton
 from src.app.components.text.text_error import TextError
+from src.app.components.chech_box.checkbox_reg import CheckBoxReg
 from flet import MainAxisAlignment
 from flet_route import Params, Basket
 
@@ -17,7 +18,12 @@ class AuthenticationPage:
         page.title = ApplicationSettings.title_application
 
         email_field = RegistrationField(text="Почта", width=RegistrationComponentsSettings.field_width).get_field()
-        password_field = RegistrationField(text="Пароль", width=RegistrationComponentsSettings.field_width).get_field()
+        password_field = RegistrationField(
+            text="Пароль",
+            width=RegistrationComponentsSettings.field_width,
+            password=True
+        ).get_field()
+        check_box_show_password: flet_app.Checkbox = CheckBoxReg(text="Показать пароль", page=page, field=password_field).get_check_box()
         text_error = TextError(txt="").get_text_error()
 
         return flet_app.View(
@@ -33,6 +39,7 @@ class AuthenticationPage:
                             ),
                             email_field,
                             password_field,
+                            check_box_show_password,
                             flet_app.Row(
                                 controls=[
                                     OutlineButton(
@@ -53,7 +60,7 @@ class AuthenticationPage:
                                         page_now=page,
                                         field_email=email_field,
                                         field_password=password_field,
-                                        error=text_error
+                                        error=text_error,
                                     ).get_btn()
                                 ],
                                 alignment=MainAxisAlignment.CENTER
