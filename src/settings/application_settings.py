@@ -1,5 +1,3 @@
-
-
 class ApplicationSettings:
 
     title_application: str = "Finance"

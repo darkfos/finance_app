@@ -1,7 +1,10 @@
+#Other libraries
 import flet
-from flet import Page, View, Column, Container, MainAxisAlignment, BorderRadius
+from flet import Page, View, Container, BorderRadius
 from flet_route import Params, Basket
-from src.settings.application_settings import ApplicationSettings
+
+
+#Local
 from src.app.components.menu.menu_application import MenuBarApplication
 from src.app.pages.page_fabric import PageFabric
 

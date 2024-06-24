@@ -1,4 +1,7 @@
+#System
 from typing import Union
+
+#Other libraries
 from flet import (
     NavigationRail,
     NavigationRailDestination,
@@ -8,6 +11,9 @@ from flet import (
     Page,
     View
 )
+
+
+#Local
 from src.settings.application_settings import ApplicationSettings
 
 

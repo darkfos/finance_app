@@ -1,6 +1,10 @@
+#Other libraries
 from flet import Container, Text, View, Page
-from src.app.components.menu.menu_application import MenuBarApplication
 from flet_route import Params, Basket
+
+
+#Local
+from src.app.components.menu.menu_application import MenuBarApplication
 from src.app.pages.page_fabric import PageFabric
 
 

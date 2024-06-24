@@ -1,9 +1,16 @@
+#System
 from typing import Union, Dict, List
+
+
+#Other libraries
+from bson.objectid import ObjectId
+from pydantic import EmailStr
+
+
+#Local
 from src.db.abs_mongo import MongoABC
 from src.db.engine import MongoEngine
 from src.db.dto.user_dto import AddNewUser, UpdateUserInformation
-from bson.objectid import ObjectId
-from pydantic import EmailStr
 
 
 class UserService(MongoEngine, MongoABC):

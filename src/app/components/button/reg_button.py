@@ -1,7 +1,14 @@
+#System
 from typing import Union
+
+
+#Other libraries
 import flet
 import pydantic
 from flet import OutlinedButton, ButtonStyle, app, TextField, Text, Row, MainAxisAlignment
+
+
+#Local
 from src.auth.auth import Authentication
 from src.db.dto.user_dto import AddNewUser
 from src.app.components.text.text_error import TextError
