@@ -5,7 +5,11 @@ from flet_route import Routing, path
 #Pages
 from src.app.pages.auth.application_auth import AuthenticationPage
 from src.app.pages.auth.applicatin_registration import RegistrationPage
-from src.app.pages.main.general_page import GenerapPage
+from src.app.pages.main.general_page import GeneralPage
+from src.app.pages.main.course_value import CourseValue
+from src.app.pages.main.course_crypt import CourseCrypt
+from src.app.pages.main.directory import Directory
+from src.app.pages.main.settings import SettingsPage
 
 
 class Router:
@@ -32,7 +36,27 @@ class Router:
             path(
                 url="/general",
                 clear=True,
-                view=GenerapPage().view
+                view=GeneralPage().view
+            ),
+            path(
+                url="/course_value",
+                clear=True,
+                view=CourseValue().view
+            ),
+            path(
+                url="/course_crypt",
+                clear=True,
+                view=CourseCrypt().view
+            ),
+            path(
+                url="/directory",
+                clear=True,
+                view=Directory().view
+            ),
+            path(
+                url="/settings",
+                clear=True,
+                view=SettingsPage().view
             )
         ]
 
