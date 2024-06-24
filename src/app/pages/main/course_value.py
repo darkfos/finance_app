@@ -1,9 +1,10 @@
 from flet import Container, Text, View, Page
 from src.app.components.menu.menu_application import MenuBarApplication
 from flet_route import Params, Basket
+from src.app.pages.page_fabric import PageFabric
 
 
-class CourseValue:
+class CourseValue(PageFabric):
     def __init__(self):
         self.view_course_value: View = View(route="/course_value")
 

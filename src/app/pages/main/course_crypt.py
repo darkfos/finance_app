@@ -1,9 +1,10 @@
 from flet import Page, View
 from flet_route import Params, Basket
 from src.app.components.menu.menu_application import MenuBarApplication
+from src.app.pages.page_fabric import PageFabric
 
 
-class CourseCrypt:
+class CourseCrypt(PageFabric):
 
     def __init__(self):
         self.view_course_crypt: View = View(route="/course_crypt")

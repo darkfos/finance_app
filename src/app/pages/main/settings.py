@@ -1,9 +1,10 @@
 from flet import Page, View
 from flet_route import Params, Basket
 from src.app.components.menu.menu_application import MenuBarApplication
+from src.app.pages.page_fabric import PageFabric
 
 
-class SettingsPage:
+class SettingsPage(PageFabric):
 
     def __init__(self):
         self.view_settings: View = View(route="/settings")

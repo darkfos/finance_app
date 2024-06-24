@@ -1,9 +1,10 @@
 from flet import View, Page
 from flet_route import Params, Basket
 from src.app.components.menu.menu_application import MenuBarApplication
+from src.app.pages.page_fabric import PageFabric
 
 
-class Directory:
+class Directory(PageFabric):
 
     def __init__(self):
         self.view_directory: View = View(route="/directory")
