@@ -6,7 +6,6 @@ from flet_route import Params, Basket
 
 #Local
 from src.settings.application_settings import ApplicationSettings
-from src.settings.registration_page_settings import RegistrationComponentsSettings
 from src.app.components.field.registration_field import RegistrationField
 from src.app.components.button.reg_button import OutlineButton
 from src.app.components.text.text_error import TextError
@@ -20,10 +19,10 @@ class AuthenticationPage(PageFabric):
         self.view_authentication: View = View(route="/")
 
     def set_components(self):
-        email_field = RegistrationField(text="Почта", width=RegistrationComponentsSettings.field_width).get_field()
+        email_field = RegistrationField(text="Почта", width=ApplicationSettings.field_width).get_field()
         password_field = RegistrationField(
             text="Пароль",
-            width=RegistrationComponentsSettings.field_width,
+            width=ApplicationSettings.field_width,
             password=True
         ).get_field()
         check_box_show_password: flet_app.Checkbox = CheckBoxReg(
@@ -49,8 +48,8 @@ class AuthenticationPage(PageFabric):
                             controls=[
                                 OutlineButton(
                                     text="Войти",
-                                    width=150,
-                                    color="blue",
+                                    width=ApplicationSettings().width_outl_btn_2,
+                                    color=ApplicationSettings().bd_color_outl,
                                     to_page="Вход",
                                     page_now=self.page,
                                     field_email=email_field,
@@ -59,8 +58,8 @@ class AuthenticationPage(PageFabric):
                                 ).get_btn(),
                                 OutlineButton(
                                     text="Регистрация",
-                                    width=150,
-                                    color="blue",
+                                    width=ApplicationSettings().width_outl_btn_2,
+                                    color=ApplicationSettings().bd_color_outl,
                                     to_page="Регистрация",
                                     page_now=self.page,
                                     field_email=email_field,

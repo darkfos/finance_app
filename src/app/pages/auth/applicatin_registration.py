@@ -7,7 +7,6 @@ from flet_route import Basket, Params
 
 #Local
 from src.settings.application_settings import ApplicationSettings
-from src.settings.registration_page_settings import RegistrationComponentsSettings
 from src.app.components.field.registration_field import RegistrationField
 from src.app.components.text.text_error import TextError
 from src.app.components.button.reg_button import OutlineButton
@@ -25,13 +24,13 @@ class RegistrationPage(PageFabric):
         btn_gnr: FilledTonalButton = FilledTonalButtonReg(
             text="Обратно",
             page=self.page,
-            bg="blue",
-            color="black"
+            bg=ApplicationSettings().bg_color,
+            color=ApplicationSettings().color
         ).get_filled_tonal_btn()
-        email_field = RegistrationField(text="Почта", width=RegistrationComponentsSettings.field_width).get_field()
+        email_field = RegistrationField(text="Почта", width=ApplicationSettings.field_width).get_field()
         password_field = RegistrationField(
             text="Пароль",
-            width=RegistrationComponentsSettings.field_width,
+            width=ApplicationSettings.field_width,
             password=True
         ).get_field()
         check_box_for_password_field: Checkbox = CheckBoxReg(
@@ -57,8 +56,8 @@ class RegistrationPage(PageFabric):
                             controls=[
                                 OutlineButton(
                                     text="Зарегистрироваться",
-                                    width=250,
-                                    color="blue",
+                                    width=ApplicationSettings().width_outl_btn,
+                                    color=ApplicationSettings().bd_color_outl,
                                     to_page="Процесс регистрации",
                                     page_now=self.page,
                                     field_email=email_field,
