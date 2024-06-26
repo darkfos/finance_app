@@ -24,3 +24,6 @@ class ApplicationSettings:
     bd_color_outl: str = "blue"
     width_outl_btn: int = 250
     width_outl_btn_2: int = 150
+
+    #DropDown
+    dr_down_weight: int = 120
