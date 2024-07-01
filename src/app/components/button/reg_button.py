@@ -12,6 +12,7 @@ from flet import OutlinedButton, ButtonStyle, app, TextField, Text, Row, MainAxi
 from src.auth.auth import Authentication
 from src.db.dto.user_dto import AddNewUser
 from src.app.components.text.text_error import TextError
+from src.api.crypt.coin_value import CoinValue
 from src.api.currencies.course_value import CourseValue
 
 
@@ -48,6 +49,7 @@ class OutlineButton:
         self.field_1 = field_1
         self.field_2 = field_2
         self.course_api = CourseValue()
+        self.coin_api = CoinValue()
 
         if field_email and field_password:
             self.field_email: Union[None, TextField] = field_email
@@ -78,6 +80,27 @@ class OutlineButton:
             finally:
                 self.page.update()
                 return
+
+        if self.to_page == "Конвертация криптовалюты":
+
+            #Конвертация криптовалюты
+            if self.field_1.value.isdigit():
+                convert: Union[float, None] = self.coin_api.convert_crypt_to_usd(
+                    value=int(self.field_1.value), crypt_name=self.dr_1.value
+                )
+
+                if convert:
+                    self.field_2.value = convert
+                    self.error.value = (f"Валюта '{self.dr_1.value}' в сумме {self.field_1.value} успешно преобразовалась "
+                                        f"в валюту 'USD' на сумму {self.field_2.value}")
+                    self.error.color = "green"
+            else:
+                self.error.value = "Не удалось конвертировать!"
+                self.error.color = "red"
+
+            self.page.update()
+
+            return
 
         if self.to_page == "Вход":
             try:

@@ -51,3 +51,16 @@ class CoinValue:
                 }
             return all_currencies
         return None
+
+    def convert_crypt_to_usd(self, value: Union[int, float], crypt_name: str) -> Union[None, float]:
+        """
+        Конвертация криптовалюты в доллары
+        :return:
+        """
+
+        currencies = self.get_currencies_symbols()
+
+        if currencies:
+            if crypt_name in currencies:
+                return currencies.get(crypt_name).get("price") * value
+        return None
