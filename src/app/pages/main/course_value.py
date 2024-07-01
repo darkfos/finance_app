@@ -30,8 +30,32 @@ class CourseValue(PageFabric):
         self.view_course_value: View = View(route="/course_value")
 
     def set_components(self):
-        drop_down_menu: Dropdown = DropDownGeneral(list_objects=["Рубль", "Евро", "Рупий", "Доллар"]).get_drop_down_menu()
-        drop_down_menu_2: Dropdown = DropDownGeneral(list_objects=["Рубль", "Евро", "Рупий", "Доллар"]).get_drop_down_menu()
+        drop_down_menu: Dropdown = DropDownGeneral(list_objects=[
+            "AUD",
+            "USD",
+            "RUB",
+            "EUR",
+            "AMD",
+            "CNY",
+            "JPY",
+            "NOK",
+            "SEK",
+            "UAH",
+            "PLN"
+        ]).get_drop_down_menu()
+        drop_down_menu_2: Dropdown = DropDownGeneral(list_objects=[
+            "AUD",
+            "USD",
+            "RUB",
+            "EUR",
+            "AMD",
+            "CNY",
+            "JPY",
+            "NOK",
+            "SEK",
+            "UAH",
+            "PLN"
+        ]).get_drop_down_menu()
         field_values_1: TextField = RegistrationField(
             text="Валюта №1",
             width=ApplicationSettings().weight_application-250
