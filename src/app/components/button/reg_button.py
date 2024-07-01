@@ -13,6 +13,7 @@ from src.auth.auth import Authentication
 from src.db.dto.user_dto import AddNewUser
 from src.app.components.text.text_error import TextError
 from src.api.crypt.coin_value import CoinValue
+from src.app.components.bottom_sheet.bottom_sheet import BottomSheetForError
 from src.api.currencies.course_value import CourseValue
 
 
@@ -66,17 +67,13 @@ class OutlineButton:
 
                 if result_convert:
                     self.field_2.value = result_convert
-                    self.error.value = (f"Валюта '{self.dr_1.value}' в сумме {self.field_1.value} успешно преобразовалась "
-                                    f"в валюту '{self.dr_2.value}' на сумму {self.field_2.value}")
-                    self.error.color = "green"
                     return
 
                 raise ValueError("Ошибка конвертации")
 
             except Exception as ex:
-                self.error.value = "Не удалось преобразовать валюту!"
-                self.error.color = "red"
-                self.error.weight = FontWeight.BOLD
+                bottom_sheet: BottomSheetForError = BottomSheetForError(page=self.page)
+                self.page.open(bottom_sheet.get_bottom_sheet())
             finally:
                 self.page.update()
                 return
@@ -91,12 +88,9 @@ class OutlineButton:
 
                 if convert:
                     self.field_2.value = convert
-                    self.error.value = (f"Валюта '{self.dr_1.value}' в сумме {self.field_1.value} успешно преобразовалась "
-                                        f"в валюту 'USD' на сумму {self.field_2.value}")
-                    self.error.color = "green"
             else:
-                self.error.value = "Не удалось конвертировать!"
-                self.error.color = "red"
+                bottom_sheet: BottomSheetForError = BottomSheetForError(page=self.page)
+                self.page.open(bottom_sheet.get_bottom_sheet())
 
             self.page.update()
 
