@@ -12,6 +12,7 @@ from flet import OutlinedButton, ButtonStyle, app, TextField, Text, Row, MainAxi
 from src.auth.auth import Authentication
 from src.db.dto.user_dto import AddNewUser
 from src.app.components.text.text_error import TextError
+from src.api.currencies.course_value import CourseValue
 
 
 class OutlineButton:
@@ -46,6 +47,7 @@ class OutlineButton:
         self.dr_2: Dropdown = dr_2
         self.field_1 = field_1
         self.field_2 = field_2
+        self.course_api = CourseValue()
 
         if field_email and field_password:
             self.field_email: Union[None, TextField] = field_email
@@ -54,10 +56,21 @@ class OutlineButton:
     def continue_to_page(self, e):
         if self.to_page == "Конвертация валют":
             try:
-                self.field_2.value = int(self.field_1.value) * 20
-                self.error.value = (f"Валюта '{self.dr_1.value}' в сумме {self.field_1.value} успешно преобразовалась "
+                #Запрос на конвертацию
+                result_convert: Union[float, None] = self.course_api.convert_value(
+                    value_1=self.dr_1.value,
+                    value_2=self.dr_2.value,
+                    amount=int(self.field_1.value))
+
+                if result_convert:
+                    self.field_2.value = result_convert
+                    self.error.value = (f"Валюта '{self.dr_1.value}' в сумме {self.field_1.value} успешно преобразовалась "
                                     f"в валюту '{self.dr_2.value}' на сумму {self.field_2.value}")
-                self.error.color = "green"
+                    self.error.color = "green"
+                    return
+
+                raise ValueError("Ошибка конвертации")
+
             except Exception as ex:
                 self.error.value = "Не удалось преобразовать валюту!"
                 self.error.color = "red"
