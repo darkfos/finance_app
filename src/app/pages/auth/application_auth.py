@@ -1,7 +1,7 @@
 #Other libraries
 import flet as flet_app
 from flet import View
-from flet import MainAxisAlignment
+from flet import MainAxisAlignment, icons
 from flet_route import Params, Basket
 
 #Local
@@ -19,11 +19,16 @@ class AuthenticationPage(PageFabric):
         self.view_authentication: View = View(route="/")
 
     def set_components(self):
-        email_field = RegistrationField(text="Почта", width=ApplicationSettings.field_width).get_field()
+        email_field = RegistrationField(
+            text="Почта",
+            width=ApplicationSettings.field_width,
+            icon=icons.EMAIL
+        ).get_field()
         password_field = RegistrationField(
             text="Пароль",
             width=ApplicationSettings.field_width,
-            password=True
+            password=True,
+            icon=icons.PASSWORD
         ).get_field()
         check_box_show_password: flet_app.Checkbox = CheckBoxReg(
             text="Показать пароль",

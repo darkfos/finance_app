@@ -1,7 +1,7 @@
 #Other libraries
 import flet as flet_app
 from flet import View
-from flet import MainAxisAlignment
+from flet import MainAxisAlignment, icons
 from flet_route import Basket, Params
 
 
@@ -27,11 +27,16 @@ class RegistrationPage(PageFabric):
             bg=ApplicationSettings().bg_color,
             color=ApplicationSettings().color
         ).get_filled_tonal_btn()
-        email_field = RegistrationField(text="Почта", width=ApplicationSettings.field_width).get_field()
+        email_field = RegistrationField(
+            text="Почта",
+            width=ApplicationSettings.field_width,
+            icon=icons.EMAIL
+        ).get_field()
         password_field = RegistrationField(
             text="Пароль",
             width=ApplicationSettings.field_width,
-            password=True
+            password=True,
+            icon=icons.PASSWORD
         ).get_field()
         check_box_for_password_field: Checkbox = CheckBoxReg(
             text="Показать пароль",
