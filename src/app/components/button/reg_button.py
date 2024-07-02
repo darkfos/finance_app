@@ -12,6 +12,7 @@ from flet import OutlinedButton, ButtonStyle, app, TextField, Text, Row, MainAxi
 from src.auth.auth import Authentication
 from src.db.dto.user_dto import AddNewUser
 from src.app.components.text.text_error import TextError
+from src.session import UserSession
 from src.api.crypt.coin_value import CoinValue
 from src.app.components.bottom_sheet.bottom_sheet import BottomSheetForError
 from src.api.currencies.course_value import CourseValue
@@ -107,6 +108,9 @@ class OutlineButton:
                 self.page.update()
             else:
                 if is_user:
+
+                    #Set id for local session
+                    UserSession.id_user = is_user
                     self.page.go("/general")
                 else:
                     self.error.value = "Неверные данные!"

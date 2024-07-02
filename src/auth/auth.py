@@ -43,7 +43,7 @@ class Authentication:
             )
 
             if is_user_password:
-                return True
+                return user_data_from_email.get("_id")
             return False
 
         return False

@@ -15,6 +15,7 @@ from flet import (
 
 #Local
 from src.settings.application_settings import ApplicationSettings
+from src.session import UserSession
 
 
 class MenuBarApplication:
@@ -71,14 +72,19 @@ class MenuBarApplication:
 
         match e.control.selected_index:
             case 0:
+                print(UserSession.id_user)
                 self.page.go("/general")
             case 1:
+                print(UserSession.id_user)
                 self.page.go("/course_value")
             case 2:
+                print(UserSession.id_user)
                 self.page.go("/course_crypt")
             case 3:
+                print(UserSession.id_user)
                 self.page.go("/directory")
             case 4:
+                print(UserSession.id_user)
                 self.page.go("/settings")
             case _:
                 ...
