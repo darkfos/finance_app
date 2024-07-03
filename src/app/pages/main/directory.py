@@ -17,7 +17,13 @@ from flet import (
     Icon,
     icons,
     Alignment,
-    LinearGradient
+    LinearGradient,
+    DataTable,
+    DataColumn,
+    DataRow,
+    DataCell,
+    colors,
+    CrossAxisAlignment
 )
 from flet_route import Params, Basket
 
@@ -41,6 +47,12 @@ class Directory(PageFabric):
                             content=Column(
                                 controls=[
                                     Container(
+                                        content=Text(
+                                            value="Меню",
+                                            weight=FontWeight.BOLD,
+                                            size=22,
+                                            italic=True
+                                        ),
                                         border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
                                         alignment=flet.alignment.center,
                                         gradient=LinearGradient(
@@ -117,22 +129,68 @@ class Directory(PageFabric):
                                                 leading=Icon(name=icons.DESCRIPTION),
                                                 title=Text(value="Энциклопедия"),
                                                 subtitle=Text(value="Finance"),
+                                                expanded_cross_axis_alignment=CrossAxisAlignment.START,
                                                 maintain_state=True,
-                                                controls=[flet.ListTile(
-                                                    title=Text(
-                                                        value="USD - United States Dollar, курс доллара (Американский).\n\n" + \
-                                                              "AUD - Australian Dollar, курс доллара (Австралийского)\n\n" + \
-                                                              "RUB - Russian Ruble, курс русского рубля\n\n" + \
-                                                              "EUR - Euro, курс евро\n\n" + \
-                                                              "AMD - Armenian Dram, курс армянского драма\n\n" + \
-                                                              "CNY - <b>Chinese Yuan</b>, курс китайского юаня\n\n" + \
-                                                              "JPY - Japanese Yen, курс японского йена\n\n" + \
-                                                              "NOK - Norwegian Krone, курс норвежского крона\n\n" + \
-                                                              "SEK - Swedish Krona, курс шведского крона\n\n" + \
-                                                              "UAH - Ukrainian Hryvnia, курс украинской гривны\n\n" + \
-                                                              "PLN - Polish Zloty, курс польской злоты"
-                                                    )
-                                                )
+                                                controls=[
+                                                    Text(
+                                                        value="\nНиже приведён список из валют, которые имеются на данный" + \
+                                                        " момент времени в приложении\n",
+                                                        weight=FontWeight.W_500
+                                                    ),
+                                                    DataTable(
+                                                        columns=[
+                                                            DataColumn(Text(
+                                                                value="Валюта",
+                                                                color=colors.GREEN_ACCENT_200
+                                                            )),
+                                                            DataColumn(Text(
+                                                                value="Описание",
+                                                                color=colors.GREEN_ACCENT_200
+                                                            ))
+                                                        ],
+                                                        rows=[
+                                                            DataRow(
+                                                                cells=[
+                                                                    DataCell(Text(value=coin_data[0])),
+                                                                    DataCell(Text(value=coin_data[-1]))
+                                                                ]
+                                                            )
+                                                            for coin_data in ApplicationSettings().coin_value_data.items()
+                                                        ]
+                                                    ),
+                                                    Text(
+                                                        value="\nСписок имеющихся криптовалют в данном приложении\n",
+                                                        weight=FontWeight.W_500
+                                                    ),
+                                                    DataTable(
+                                                        columns=[
+                                                            DataColumn(
+                                                                Text(
+                                                                    value="Валюта",
+                                                                    color=colors.ORANGE_ACCENT_200
+                                                                )
+                                                            ),
+                                                            DataColumn(
+                                                                Text(
+                                                                    value="Описание криптовалюты",
+                                                                    color=colors.ORANGE_ACCENT_200
+                                                                )
+                                                            )
+                                                        ],
+                                                        rows=[
+                                                            DataRow(
+                                                                cells=[
+                                                                    DataCell(
+                                                                        Text(value=data_coin[0])
+                                                                    ),
+                                                                    DataCell(
+                                                                        Text(value=data_coin[-1])
+                                                                    )
+                                                                ]
+                                                            )
+                                                            for data_coin in ApplicationSettings.crypt_coin_value_data.items()
+                                                        ]
+                                                    ),
                                                 ],
                                                 text_color="blue"
                                             ),

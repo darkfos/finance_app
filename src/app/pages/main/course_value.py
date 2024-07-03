@@ -13,7 +13,8 @@ from flet import (
     TextField,
     Border,
     LinearGradient,
-    Alignment
+    Alignment,
+    FontWeight
 )
 from flet_route import Params, Basket
 import flet
@@ -78,6 +79,12 @@ class CourseValue(PageFabric):
                         content=Column(
                             controls=[
                                 Container(
+                                    content=Text(
+                                        value="Меню",
+                                        weight=FontWeight.BOLD,
+                                        size=22,
+                                        italic=True
+                                    ),
                                     border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
                                     alignment=flet.alignment.center,
                                     gradient=LinearGradient(

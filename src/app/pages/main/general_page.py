@@ -21,7 +21,8 @@ from flet import (
     FilledTonalButton,
     LinearGradient,
     Alignment,
-    Border
+    Border,
+    Icon
 )
 from flet_route import Params, Basket
 
@@ -72,6 +73,12 @@ class GeneralPage(PageFabric):
                         content=Column(
                             controls=[
                                 Container(
+                                    content=Text(
+                                        value="Меню",
+                                        weight=FontWeight.BOLD,
+                                        size=22,
+                                        italic=True
+                                    ),
                                     border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
                                     alignment=flet.alignment.center,
                                     gradient=LinearGradient(
@@ -271,6 +278,7 @@ class GeneralPage(PageFabric):
                                 ListView(
                                     controls=[
                                         ExpansionTile(
+                                            leading=Icon(flet.icons.HISTORY),
                                             title=Text(value="История"),
                                             subtitle=Text(value="Ваша история"),
                                             text_color="blue",
@@ -278,6 +286,7 @@ class GeneralPage(PageFabric):
                                             controls=[ListTile(title=Text(value="Test"))]
                                         ),
                                         ExpansionTile(
+                                            leading=Icon(flet.icons.SAVE),
                                             title=Text(value="Безопасность"),
                                             subtitle=Text(value="Настройки безопасности"),
                                             text_color="blue",
