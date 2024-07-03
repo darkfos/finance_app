@@ -24,10 +24,11 @@ class AddNewUser(BaseModel):
         arbitrary_types_allowed = True
 
 
-class UpdateUserInformation(BaseModel):
+class UpdateUserCountValue(BaseModel):
 
-    id: Annotated[ObjectId, Field()]
-    user_name: Annotated[str, Field(min_length=1, max_length=120)]
+    _id: Annotated[ObjectId, Field()]
+    count_general_convert: Annotated[int, Field(default=0)] = None
+    count_convert_value: Annotated[int, Field(default=0)] = None
 
     class Config:
         arbitrary_types_allowed = True

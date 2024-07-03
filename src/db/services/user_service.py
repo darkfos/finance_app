@@ -10,7 +10,7 @@ from pydantic import EmailStr
 #Local
 from src.db.abs_mongo import MongoABC
 from src.db.engine import MongoEngine
-from src.db.dto.user_dto import AddNewUser, UpdateUserInformation
+from src.db.dto.user_dto import AddNewUser
 
 
 class UserService(MongoEngine, MongoABC):
@@ -21,7 +21,7 @@ class UserService(MongoEngine, MongoABC):
         :return:
         """
 
-        user = self.user_collection.find_one({"id": id_user})
+        user = self.user_collection.find_one({"_id": id_user})
         if user:
             return user
         return None
@@ -55,13 +55,13 @@ class UserService(MongoEngine, MongoABC):
             return True
         return False
 
-    def update_information(self, data_update: UpdateUserInformation) -> bool:
+    def update_information(self, find_data: dict, data_update: dict) -> bool:
         """
         Обновление информации
         :return:
         """
 
-        is_updated = self.user_collection.update_one(data_update.model_dump())
+        is_updated = self.user_collection.update_one(find_data, data_update)
         if is_updated: return True
         return False
 

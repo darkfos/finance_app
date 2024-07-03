@@ -5,6 +5,7 @@ from typing import Union
 #Other libraries
 import flet
 import pydantic
+from bson.objectid import ObjectId
 from flet import OutlinedButton, ButtonStyle, app, TextField, Text, Row, MainAxisAlignment, Dropdown, FontWeight
 
 
@@ -16,6 +17,7 @@ from src.session import UserSession
 from src.api.crypt.coin_value import CoinValue
 from src.app.components.bottom_sheet.bottom_sheet import BottomSheetForError
 from src.api.currencies.course_value import CourseValue
+from src.db.services.user_service import UserService
 
 
 class OutlineButton:
@@ -52,6 +54,7 @@ class OutlineButton:
         self.field_2 = field_2
         self.course_api = CourseValue()
         self.coin_api = CoinValue()
+        self.user_service: UserService = UserService()
 
         if field_email and field_password:
             self.field_email: Union[None, TextField] = field_email
@@ -67,6 +70,11 @@ class OutlineButton:
                     amount=int(self.field_1.value))
 
                 if result_convert:
+                    #Обновление информации о пользователе
+                    self.user_service.update_information(
+                        find_data={"_id": ObjectId(UserSession.id_user)},
+                        data_update={"$inc": {"count_convert_value": 1, "count_general_convert": 1}}
+                    )
                     self.field_2.value = result_convert
                     return
 
@@ -88,6 +96,11 @@ class OutlineButton:
                 )
 
                 if convert:
+                    #Обновление данных
+                    self.user_service.update_information(
+                        find_data={"_id": ObjectId(UserSession.id_user)},
+                        data_update={"$inc": {"count_general_convert": 1, "count_convert_coin": 1}}
+                    )
                     self.field_2.value = convert
             else:
                 bottom_sheet: BottomSheetForError = BottomSheetForError(page=self.page)
