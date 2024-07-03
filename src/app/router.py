@@ -11,6 +11,7 @@ from src.app.pages.main.course_value import CourseValue
 from src.app.pages.main.course_crypt import CourseCrypt
 from src.app.pages.main.directory import Directory
 from src.app.pages.main.settings import SettingsPage
+from src.settings.application_settings import ApplicationSettings
 
 
 class Router:
@@ -18,6 +19,12 @@ class Router:
     def __init__(self, page: flet_app.Page):
         self.page = page
         self.flet_app = flet_app
+
+        #Установка настроек
+        self.page.window_width = ApplicationSettings.weight_application
+        self.page.window_height = ApplicationSettings.height_application
+        self.page.window_resizable = ApplicationSettings.resizable_window
+        self.page.title = ApplicationSettings.title_application
 
         self.start_router()
 

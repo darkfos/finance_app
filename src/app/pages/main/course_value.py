@@ -85,52 +85,43 @@ class CourseValue(PageFabric):
                                         size=22,
                                         italic=True
                                     ),
-                                    border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
+                                    border=flet.border.only(right=flet.border.BorderSide(1, "#2573da")),
                                     alignment=flet.alignment.center,
                                     gradient=LinearGradient(
                                         begin=flet.alignment.top_left,
-                                        end=Alignment(0.8, 1),
+                                        end=Alignment(5, 1),
                                         colors=[
-                                            "0xff1f005c",
-                                            "0xff5b0060",
-                                            "0xff870160",
-                                            "0xffac255e",
-                                            "0xffca485c",
-                                            "0xffe16b5c",
-                                            "0xfff39060",
-                                            "0xffffb56b",
+                                            "#3225da",
+                                            "#2573da",
+                                            "#25cdda",
+                                            "#25cdda",
+                                            "#2573da",
                                         ],
-                                        tile_mode=flet.GradientTileMode.MIRROR,
-                                        rotation=3.14 / 2
+                                        tile_mode=flet.GradientTileMode.CLAMP,
+                                        rotation=0.1
                                     ),
                                     width=ApplicationSettings().weight_application // 4,
                                     height=90,
                                     border_radius=BorderRadius(top_right=48, bottom_right=0, top_left=0, bottom_left=0)
                                 ),
                                 Container(
-                                    content=MenuBarApplication(page=self.page, is_selected=1).get_menu(),
-                                    border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
-                                    alignment=flet.alignment.center,
-                                    gradient=LinearGradient(
-                                        begin=flet.alignment.top_left,
-                                        end=Alignment(0.8, 1),
-                                        colors=[
-                                            "0xff1f005c",
-                                            "0xff5b0060",
-                                            "0xff870160",
-                                            "0xffac255e",
-                                            "0xffca485c",
-                                            "0xffe16b5c",
-                                            "0xfff39060",
-                                            "0xffffb56b",
+                                    content=Column(
+                                        controls=[
+                                            MenuBarApplication(page=self.page, is_selected=0).get_menu(),
+                                            Text(""),
+                                            flet.IconButton(
+                                                icon=flet.icons.EXIT_TO_APP,
+                                                icon_color="RED",
+                                                on_click=lambda _: self.page.go("/"),
+                                            ),
+                                            Text(""),
+                                            Text("")
                                         ],
-                                        tile_mode=flet.GradientTileMode.MIRROR,
-                                        rotation=3.14 / 2
+                                        horizontal_alignment=CrossAxisAlignment.CENTER,
                                     ),
-                                    width=ApplicationSettings().weight_application // 4,
-                                    # height=ApplicationSettings().weight_application,
+                                    border=flet.border.only(right=flet.border.BorderSide(1, "#2573da")),
                                     border_radius=BorderRadius(top_right=0, bottom_right=48, top_left=0, bottom_left=0)
-                                )
+                                ),
                             ],
                             alignment=MainAxisAlignment.SPACE_BETWEEN
                         )

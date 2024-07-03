@@ -24,7 +24,7 @@ class MenuBarApplication:
         self.page: Page = page
         self.navigation: NavigationRail = NavigationRail(
             width=ApplicationSettings().weight_application // 4,
-            height=ApplicationSettings().height_application,
+            height=ApplicationSettings().height_application - 250,
             #bgcolor=colors.INDIGO_ACCENT_200,
             destinations=[
                 NavigationRailDestination(
