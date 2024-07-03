@@ -11,3 +11,4 @@ class MongoEngine:
         self.engine: MongoClient = MongoClient(DatabaseSettings.db_url)
         self.db = self.engine["finance"]
         self.user_collection = self.db["users"]
+        self.user_history_collection = self.db["history_operations"]
