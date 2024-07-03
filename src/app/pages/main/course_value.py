@@ -10,7 +10,10 @@ from flet import (
     Dropdown,
     MainAxisAlignment,
     CrossAxisAlignment,
-    TextField
+    TextField,
+    Border,
+    LinearGradient,
+    Alignment
 )
 from flet_route import Params, Basket
 import flet
@@ -72,8 +75,58 @@ class CourseValue(PageFabric):
             Row(
                 controls=[
                     Container(
-                        content=MenuBarApplication(is_selected=1, page=self.page).get_menu(),
-                        border_radius=BorderRadius(top_right=48, bottom_right=48, top_left=0, bottom_left=0)
+                        content=Column(
+                            controls=[
+                                Container(
+                                    border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
+                                    alignment=flet.alignment.center,
+                                    gradient=LinearGradient(
+                                        begin=flet.alignment.top_left,
+                                        end=Alignment(0.8, 1),
+                                        colors=[
+                                            "0xff1f005c",
+                                            "0xff5b0060",
+                                            "0xff870160",
+                                            "0xffac255e",
+                                            "0xffca485c",
+                                            "0xffe16b5c",
+                                            "0xfff39060",
+                                            "0xffffb56b",
+                                        ],
+                                        tile_mode=flet.GradientTileMode.MIRROR,
+                                        rotation=3.14 / 2
+                                    ),
+                                    width=ApplicationSettings().weight_application // 4,
+                                    height=90,
+                                    border_radius=BorderRadius(top_right=48, bottom_right=0, top_left=0, bottom_left=0)
+                                ),
+                                Container(
+                                    content=MenuBarApplication(page=self.page, is_selected=1).get_menu(),
+                                    border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
+                                    alignment=flet.alignment.center,
+                                    gradient=LinearGradient(
+                                        begin=flet.alignment.top_left,
+                                        end=Alignment(0.8, 1),
+                                        colors=[
+                                            "0xff1f005c",
+                                            "0xff5b0060",
+                                            "0xff870160",
+                                            "0xffac255e",
+                                            "0xffca485c",
+                                            "0xffe16b5c",
+                                            "0xfff39060",
+                                            "0xffffb56b",
+                                        ],
+                                        tile_mode=flet.GradientTileMode.MIRROR,
+                                        rotation=3.14 / 2
+                                    ),
+                                    width=ApplicationSettings().weight_application // 4,
+                                    # height=ApplicationSettings().weight_application,
+                                    border_radius=BorderRadius(top_right=0, bottom_right=48, top_left=0, bottom_left=0)
+                                )
+                            ],
+                            alignment=MainAxisAlignment.SPACE_BETWEEN
+                        )
                     ),
                     Column(
                         controls=[

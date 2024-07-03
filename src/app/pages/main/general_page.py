@@ -17,7 +17,11 @@ from flet import (
     colors,
     ExpansionTile,
     ListView,
-    ListTile
+    ListTile,
+    FilledTonalButton,
+    LinearGradient,
+    Alignment,
+    Border
 )
 from flet_route import Params, Basket
 
@@ -28,6 +32,7 @@ from src.settings.application_settings import ApplicationSettings
 from src.session import UserSession
 from src.db.services.user_service import UserService
 from src.app.pages.page_fabric import PageFabric
+from src.app.components.button.filled_tonal_button_reg import FilledTonalButtonReg
 
 
 class GeneralPage(PageFabric):
@@ -39,12 +44,83 @@ class GeneralPage(PageFabric):
         #Получение данных
         user_data: dict = UserService().get_one(id_user=UserSession.id_user)
 
+        btn_update_username: FilledTonalButton = FilledTonalButtonReg(
+            text="Обновить имя",
+            page=self.page,
+            bg=colors.INDIGO_ACCENT_200,
+            color="BLACK"
+        ).get_filled_tonal_btn()
+
+        btn_update_password: FilledTonalButton = FilledTonalButtonReg(
+            text="Обновить пароль",
+            page=self.page,
+            bg=colors.GREEN_ACCENT_200,
+            color="BLACK"
+        ).get_filled_tonal_btn()
+
+        btn_update_userphoto: FilledTonalButton = FilledTonalButtonReg(
+            text="Обновить фотографию",
+            page=self.page,
+            bg=colors.RED_ACCENT,
+            color="BLACK"
+        ).get_filled_tonal_btn()
+
         self.view_general.controls = [
             Row(
                 controls=[
                     Container(
-                        content=MenuBarApplication(page=self.page, is_selected=0).get_menu(),
-                        border_radius=BorderRadius(top_right=48, bottom_right=48, top_left=0, bottom_left=0)
+                        content=Column(
+                            controls=[
+                                Container(
+                                    border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
+                                    alignment=flet.alignment.center,
+                                    gradient=LinearGradient(
+                                        begin=flet.alignment.top_left,
+                                        end=Alignment(0.8, 1),
+                                        colors=[
+                                            "0xff1f005c",
+                                            "0xff5b0060",
+                                            "0xff870160",
+                                            "0xffac255e",
+                                            "0xffca485c",
+                                            "0xffe16b5c",
+                                            "0xfff39060",
+                                            "0xffffb56b",
+                                        ],
+                                        tile_mode=flet.GradientTileMode.MIRROR,
+                                        rotation=3.14 / 2
+                                    ),
+                                    width=ApplicationSettings().weight_application // 4,
+                                    height=90,
+                                    border_radius=BorderRadius(top_right=48, bottom_right=0, top_left=0, bottom_left=0)
+                                ),
+                                Container(
+                                    content=MenuBarApplication(page=self.page, is_selected=0).get_menu(),
+                                    border=flet.border.only(right=flet.border.BorderSide(1, "0xff870160")),
+                                    alignment=flet.alignment.center,
+                                    gradient=LinearGradient(
+                                        begin=flet.alignment.top_left,
+                                        end=Alignment(0.8, 1),
+                                        colors=[
+                                            "0xff1f005c",
+                                            "0xff5b0060",
+                                            "0xff870160",
+                                            "0xffac255e",
+                                            "0xffca485c",
+                                            "0xffe16b5c",
+                                            "0xfff39060",
+                                            "0xffffb56b",
+                                        ],
+                                        tile_mode=flet.GradientTileMode.MIRROR,
+                                        rotation=3.14 / 2
+                                    ),
+                                    width=ApplicationSettings().weight_application // 4,
+                                    # height=ApplicationSettings().weight_application,
+                                    border_radius=BorderRadius(top_right=0, bottom_right=48, top_left=0, bottom_left=0)
+                                )
+                            ],
+                            alignment=MainAxisAlignment.SPACE_BETWEEN
+                        )
                     ),
                     Container(
                         content=Column(
@@ -66,7 +142,9 @@ class GeneralPage(PageFabric):
                                                 Text(value=user_data.get("email")),
                                             ]
                                         ),
+                                        Container(
 
+                                        )
                                     ],
                                     spacing=30
                                 ),
@@ -195,17 +273,46 @@ class GeneralPage(PageFabric):
                                         ExpansionTile(
                                             title=Text(value="История"),
                                             subtitle=Text(value="Ваша история"),
+                                            text_color="blue",
                                             expand=True,
                                             controls=[ListTile(title=Text(value="Test"))]
                                         ),
                                         ExpansionTile(
                                             title=Text(value="Безопасность"),
                                             subtitle=Text(value="Настройки безопасности"),
+                                            text_color="blue",
                                             expand=True,
-                                            controls=[ListTile(title=Text(value="Тест"))]
+                                            controls=[
+                                                Column(
+                                                    controls=[
+                                                        Text(value=""),
+                                                        Row(
+                                                            controls=[
+                                                                Text(value="Обновление имени: "),
+                                                                btn_update_username
+                                                            ]
+                                                        ),
+                                                        Row(
+                                                            controls=[
+                                                                Text(value="Обновление пароля: "),
+                                                                btn_update_password
+                                                            ]
+                                                        ),
+                                                        Row(
+                                                            controls=[
+                                                                Text(value="Обновление фотографии: "),
+                                                                btn_update_userphoto
+                                                            ]
+                                                        ),
+                                                    ],
+                                                    spacing=25,
+                                                    horizontal_alignment=CrossAxisAlignment.CENTER,
+                                                    alignment=MainAxisAlignment.CENTER
+                                                )
+                                            ],
                                         ),
                                     ],
-                                    height=ApplicationSettings().height_application - 400,
+                                    height=ApplicationSettings().height_application - 450,
                                     width=500,
                                     animate_rotation=True,
                                 )
