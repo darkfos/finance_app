@@ -22,7 +22,11 @@ from flet import (
     LinearGradient,
     Alignment,
     Border,
-    Icon
+    Icon,
+    DataTable,
+    DataCell,
+    DataRow,
+    DataColumn
 )
 from flet_route import Params, Basket
 
@@ -34,6 +38,7 @@ from src.session import UserSession
 from src.db.services.user_service import UserService
 from src.app.pages.page_fabric import PageFabric
 from src.app.components.button.filled_tonal_button_reg import FilledTonalButtonReg
+from src.db.services.history_service import HistoryService
 
 
 class GeneralPage(PageFabric):
@@ -283,7 +288,46 @@ class GeneralPage(PageFabric):
                                             subtitle=Text(value="Ваша история"),
                                             text_color="blue",
                                             expand=True,
-                                            controls=[ListTile(title=Text(value="Test"))]
+                                            controls=[
+                                                DataTable(
+                                                    columns=[
+                                                        DataColumn(
+                                                            Text(
+                                                                value="Операция №1",
+                                                                color=colors.GREEN_ACCENT_200
+                                                            )
+                                                        ),
+                                                        DataColumn(
+                                                            Text(
+                                                                value="Операция №2",
+                                                                color=colors.GREEN_ACCENT_200
+                                                            )
+                                                        ),
+                                                        DataColumn(
+                                                            Text(
+                                                                value="Дата операции",
+                                                                color=colors.ORANGE_ACCENT_200
+                                                            )
+                                                        )
+                                                    ],
+                                                    rows=[
+                                                        DataRow(
+                                                            cells=[
+                                                                DataCell(
+                                                                    Text(value=history.get("from_operation"))
+                                                                ),
+                                                                DataCell(
+                                                                    Text(value=history.get("to_operation"))
+                                                                ),
+                                                                DataCell(
+                                                                    Text(value=history.get("date_operation"))
+                                                                ),
+                                                            ]
+                                                        )
+                                                        for history in HistoryService().get_all(id_user=UserSession.id_user)
+                                                    ]
+                                                )
+                                            ]
                                         ),
                                         ExpansionTile(
                                             leading=Icon(flet.icons.SAVE),
