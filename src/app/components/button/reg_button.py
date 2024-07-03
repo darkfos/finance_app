@@ -12,12 +12,14 @@ from flet import OutlinedButton, ButtonStyle, app, TextField, Text, Row, MainAxi
 #Local
 from src.auth.auth import Authentication
 from src.db.dto.user_dto import AddNewUser
+from src.db.dto.history_dto import AddHistory
 from src.app.components.text.text_error import TextError
 from src.session import UserSession
 from src.api.crypt.coin_value import CoinValue
 from src.app.components.bottom_sheet.bottom_sheet import BottomSheetForError
 from src.api.currencies.course_value import CourseValue
 from src.db.services.user_service import UserService
+from src.db.services.history_service import HistoryService
 
 
 class OutlineButton:
@@ -55,6 +57,7 @@ class OutlineButton:
         self.course_api = CourseValue()
         self.coin_api = CoinValue()
         self.user_service: UserService = UserService()
+        self.history_service: HistoryService = HistoryService()
 
         if field_email and field_password:
             self.field_email: Union[None, TextField] = field_email
@@ -70,10 +73,20 @@ class OutlineButton:
                     amount=int(self.field_1.value))
 
                 if result_convert:
+
                     #Обновление информации о пользователе
                     self.user_service.update_information(
                         find_data={"_id": ObjectId(UserSession.id_user)},
                         data_update={"$inc": {"count_convert_value": 1, "count_general_convert": 1}}
+                    )
+
+                    #Добавление истории
+                    self.history_service.add_new(
+                        new_history=AddHistory(
+                            user_id=UserSession.id_user,
+                            from_operation=self.dr_1.value,
+                            to_operation=self.dr_2.value
+                        )
                     )
                     self.field_2.value = result_convert
                     return
@@ -100,6 +113,15 @@ class OutlineButton:
                     self.user_service.update_information(
                         find_data={"_id": ObjectId(UserSession.id_user)},
                         data_update={"$inc": {"count_general_convert": 1, "count_convert_coin": 1}}
+                    )
+
+                    #Добавление истории
+                    self.history_service.add_new(
+                        new_history=AddHistory(
+                            user_id=UserSession.id_user,
+                            from_operation=self.dr_1.value,
+                            to_operation="USD"
+                        )
                     )
                     self.field_2.value = convert
             else:
