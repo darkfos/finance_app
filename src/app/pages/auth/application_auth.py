@@ -103,6 +103,22 @@ class AuthenticationPage(PageFabric):
             )
         ]
 
+    def remember_user(self) -> None:
+        """
+        Проверка на сохранение сессии пользователя
+        :return:
+        """
+
+        with open("user_data.txt", "r", encoding="UTF-8") as file:
+            data_file: list[str] = file.readlines()
+
+        if data_file:
+            is_user: bool = Authentication().auth_user(user_data=AddNewUser(
+                email=data_file[0][:-1],
+                password=data_file[-1]
+            ))
+            if is_user: self.page.go("/general")
+
     def view(self, page: flet_app.Page, params: Params, basket: Basket):
 
         self.page = page
@@ -111,16 +127,6 @@ class AuthenticationPage(PageFabric):
         self.set_components()
 
         #Проверка сохраненного пользователя
-        with open("user_data.txt", "r", encoding="UTF-8") as file:
-            data = file.readlines()
-        if data:
-            is_user: bool = Authentication().auth_user(user_data=AddNewUser(
-                email=data[0][:-1],
-                password=data[-1]
-            ))
-
-            if is_user:
-                UserSession.id_user = is_user
-                self.page.go("/general")
+        self.remember_user()
 
         return self.view_authentication

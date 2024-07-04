@@ -92,12 +92,6 @@ class RegistrationPage(PageFabric):
 
     def view(self, page: flet_app.Page, params: Params, basket: Basket):
 
-        self.page = page
-        self.page.window_width = ApplicationSettings.weight_application
-        self.page.window_height = ApplicationSettings.height_application
-        self.page.window_resizable = ApplicationSettings.resizable_window
-        self.page.title = ApplicationSettings.title_application
-
         #Установка компонентов
         self.set_components()
 
