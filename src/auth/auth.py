@@ -1,3 +1,7 @@
+#System
+from typing import Dict, Union
+
+
 #Local
 from src.auth.hash import HashService
 from src.db.services.user_service import UserService
@@ -26,7 +30,7 @@ class Authentication:
             return False
         return False
 
-    def auth_user(self, user_data: AddNewUser) -> bool:
+    def auth_user(self, user_data: Union[dict, AddNewUser]) -> bool:
         """
         Проверка данных пользователя
         :param user_data:

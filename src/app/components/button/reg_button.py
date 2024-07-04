@@ -34,10 +34,11 @@ class OutlineButton:
             field_email: Union[None, TextField] = None,
             field_password: Union[None, TextField] = None,
             error: Text = None,
+            remember: flet.Checkbox = None,
             dr_1: Dropdown = None,
             dr_2: Dropdown = None,
             field_1: TextField = None,
-            field_2: TextField = None
+            field_2: TextField = None,
     ):
         self.btn = OutlinedButton(
             text=text,
@@ -54,6 +55,7 @@ class OutlineButton:
         self.dr_2: Dropdown = dr_2
         self.field_1 = field_1
         self.field_2 = field_2
+        self.remember = remember
         self.course_api = CourseValue()
         self.coin_api = CoinValue()
         self.user_service: UserService = UserService()
@@ -146,6 +148,10 @@ class OutlineButton:
 
                     #Set id for local session
                     UserSession.id_user = is_user
+
+                    if self.remember.value is True:
+                        with open("user_data.txt", "w", encoding="UTF-8") as file:
+                            file.write(self.field_email.value+"\n"+self.field_password.value)
                     self.page.go("/general")
                 else:
                     self.error.value = "Неверные данные!"

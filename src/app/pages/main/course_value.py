@@ -27,6 +27,7 @@ from src.app.components.button.reg_button import OutlineButton
 from src.app.components.dropdown.drop_down_gen import DropDownGeneral
 from src.app.components.field.registration_field import RegistrationField
 from src.app.pages.page_fabric import PageFabric
+from src.app.components.button.icon_btn.icon_btn import IconButtonForLeave
 
 
 class CourseValue(PageFabric):
@@ -109,11 +110,7 @@ class CourseValue(PageFabric):
                                         controls=[
                                             MenuBarApplication(page=self.page, is_selected=0).get_menu(),
                                             Text(""),
-                                            flet.IconButton(
-                                                icon=flet.icons.EXIT_TO_APP,
-                                                icon_color="RED",
-                                                on_click=lambda _: self.page.go("/"),
-                                            ),
+                                            IconButtonForLeave(page=self.page).get_icon_btn(),
                                             Text(""),
                                             Text("")
                                         ],

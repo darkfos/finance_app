@@ -11,6 +11,9 @@ from src.app.components.button.reg_button import OutlineButton
 from src.app.components.text.text_error import TextError
 from src.app.components.chech_box.checkbox_reg import CheckBoxReg
 from src.app.pages.page_fabric import PageFabric
+from src.db.dto.user_dto import AddNewUser
+from src.auth.auth import Authentication
+from src.session import UserSession
 
 
 class AuthenticationPage(PageFabric):
@@ -35,6 +38,12 @@ class AuthenticationPage(PageFabric):
             page=self.page,
             field=password_field
         ).get_check_box()
+
+        check_box_remember_my_account: flet_app.Checkbox = CheckBoxReg(
+            text="Запомнить аккаунт",
+            page=self.page,
+        ).get_check_box()
+
         text_error = TextError(txt="").get_text_error()
 
         self.view_authentication.controls = [
@@ -49,6 +58,7 @@ class AuthenticationPage(PageFabric):
                         email_field,
                         password_field,
                         check_box_show_password,
+                        check_box_remember_my_account,
                         flet_app.Row(
                             controls=[
                                 OutlineButton(
@@ -59,7 +69,8 @@ class AuthenticationPage(PageFabric):
                                     page_now=self.page,
                                     field_email=email_field,
                                     field_password=password_field,
-                                    error=text_error
+                                    error=text_error,
+                                    remember=check_box_remember_my_account
                                 ).get_btn(),
                                 OutlineButton(
                                     text="Регистрация",
@@ -98,5 +109,18 @@ class AuthenticationPage(PageFabric):
 
         #Установка компонентов
         self.set_components()
+
+        #Проверка сохраненного пользователя
+        with open("user_data.txt", "r", encoding="UTF-8") as file:
+            data = file.readlines()
+        if data:
+            is_user: bool = Authentication().auth_user(user_data=AddNewUser(
+                email=data[0][:-1],
+                password=data[-1]
+            ))
+
+            if is_user:
+                UserSession.id_user = is_user
+                self.page.go("/general")
 
         return self.view_authentication

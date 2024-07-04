@@ -14,7 +14,6 @@ from flet import (
     CrossAxisAlignment,
     Text,
     LinearGradient,
-    Border,
     Alignment,
     FontWeight
 )
@@ -28,6 +27,7 @@ from src.app.components.dropdown.drop_down_gen import DropDownGeneral
 from src.settings.application_settings import ApplicationSettings
 from src.app.components.field.registration_field import RegistrationField
 from src.app.components.button.reg_button import OutlineButton
+from src.app.components.button.icon_btn.icon_btn import IconButtonForLeave
 from src.api.crypt.coin_value import CoinValue
 from src.app.pages.page_fabric import PageFabric
 
@@ -116,11 +116,7 @@ class CourseCrypt(PageFabric):
                                         controls=[
                                             MenuBarApplication(page=self.page, is_selected=0).get_menu(),
                                             Text(""),
-                                            flet.IconButton(
-                                                icon=flet.icons.EXIT_TO_APP,
-                                                icon_color="RED",
-                                                on_click=lambda _: self.page.go("/"),
-                                            ),
+                                            IconButtonForLeave(page=self.page).get_icon_btn(),
                                             Text(""),
                                             Text("")
                                         ],

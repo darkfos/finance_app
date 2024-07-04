@@ -1,9 +1,19 @@
+#System
+from typing import Union
+
+
+#Other libraries
 from flet import Checkbox, TextField, Page
 
 
 class CheckBoxReg:
 
-    def __init__(self, text: str, field: TextField, page: Page):
+    def __init__(
+            self,
+            text: str,
+            page: Page,
+            field: Union[TextField, None] = None,
+    ):
         self.check_box: Checkbox = Checkbox(
             label=text,
             on_change=self.change_check_box,
@@ -18,10 +28,11 @@ class CheckBoxReg:
         :return:
         """
 
-        if self.field.password is True:
-            self.field.password = False
-        else:
-            self.field.password = True
+        if self.field:
+            if self.field.password is True:
+                self.field.password = False
+            else:
+                self.field.password = True
         self.page.update()
 
     def get_check_box(self) -> Checkbox:

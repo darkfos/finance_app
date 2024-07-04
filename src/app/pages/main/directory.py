@@ -31,6 +31,7 @@ from flet_route import Params, Basket
 #Local
 from src.app.components.menu.menu_application import MenuBarApplication
 from src.settings.application_settings import ApplicationSettings
+from src.app.components.button.icon_btn.icon_btn import IconButtonForLeave
 from src.app.pages.page_fabric import PageFabric
 
 
@@ -78,11 +79,7 @@ class Directory(PageFabric):
                                             controls=[
                                                 MenuBarApplication(page=self.page, is_selected=0).get_menu(),
                                                 Text(""),
-                                                flet.IconButton(
-                                                    icon=flet.icons.EXIT_TO_APP,
-                                                    icon_color="RED",
-                                                    on_click=lambda _: self.page.go("/"),
-                                                ),
+                                                IconButtonForLeave(page=self.page).get_icon_btn(),
                                                 Text(""),
                                                 Text("")
                                             ],
