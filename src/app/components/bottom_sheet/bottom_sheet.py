@@ -1,3 +1,6 @@
+#System
+from typing import Union
+
 #Other
 from flet import (
     BottomSheet,
@@ -23,7 +26,7 @@ from src.settings.application_settings import ApplicationSettings
 
 class BottomSheetForError:
 
-    def __init__(self, page: Page):
+    def __init__(self, page: Page, text: Union[str, None] = None):
         self.page = page
         self.app_settings: ApplicationSettings = ApplicationSettings()
         self.img = Image(
@@ -41,7 +44,7 @@ class BottomSheetForError:
                     controls=[
                         self.container_with_img,
                         Text(
-                            value="Не удалось конвертировать валюту!",
+                            value=text if text else "Не удалось конвертировать валюту!",
                             color="red",
                             weight=FontWeight.BOLD,
                             size=18
