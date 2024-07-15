@@ -35,6 +35,7 @@ from flet_route import Params, Basket
 from src.app.components.menu.menu_application import MenuBarApplication
 from src.app.components.dialog.dialog_to_update_user_photo import DialogUpdateUserPhoto
 from src.app.components.dialog.dialog_to_update_user_password import DialogUpdateUserPassword
+from src.app.components.dialog.dialog_to_update_username import DialogUpdateUserName
 from src.settings.application_settings import ApplicationSettings
 from src.session import UserSession
 from src.db.services.user_service import UserService
@@ -57,7 +58,8 @@ class GeneralPage(PageFabric):
             text="Обновить имя",
             page=self.page,
             bg=colors.INDIGO_ACCENT_200,
-            color="BLACK"
+            color="BLACK",
+            on_click=lambda _: self.page.open(DialogUpdateUserName(page=self.page).get_dialog_change_name())
         ).get_filled_tonal_btn()
 
         btn_update_password: FilledTonalButton = FilledTonalButtonReg(

@@ -40,6 +40,7 @@ class DialogUpdateUserPassword:
                         on_click=self.change_password,
                         style=ButtonStyle(
                             bgcolor=colors.GREEN_ACCENT_400,
+                            color=colors.BLACK
                         )
                     )
                 ],
