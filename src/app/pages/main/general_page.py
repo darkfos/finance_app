@@ -33,6 +33,7 @@ from flet_route import Params, Basket
 
 #Local
 from src.app.components.menu.menu_application import MenuBarApplication
+from src.app.components.dialog.dialog_to_update_user_photo import DialogUpdateUserPhoto
 from src.settings.application_settings import ApplicationSettings
 from src.session import UserSession
 from src.db.services.user_service import UserService
@@ -69,7 +70,8 @@ class GeneralPage(PageFabric):
             text="Обновить фотографию",
             page=self.page,
             bg=colors.RED_ACCENT,
-            color="BLACK"
+            color="BLACK",
+            on_click=lambda _: self.page.open(DialogUpdateUserPhoto(page=self.page).get_update_photo_dialog())
         ).get_filled_tonal_btn()
 
         self.view_general.controls = [
@@ -130,7 +132,9 @@ class GeneralPage(PageFabric):
                                         Column(
                                             controls=[
                                                 Image(
-                                                    src="/home/darkfos/PycharmProjects/finance_app/src/static/images/base_profile.png",
+                                                    src="/home/darkfos/PycharmProjects/finance_app/src/static/images/base_profile.png"
+                                                    if "photo_user" not in user_data else
+                                                    user_data.get("photo_user"),
                                                     width=90,
                                                     height=90
                                                 ),
